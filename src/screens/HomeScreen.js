@@ -3,13 +3,12 @@ import React from "react";
 import {
   ImageBackground,
   StyleSheet,
-  Text,
   TouchableWithoutFeedback,
-  View,
 } from "react-native";
 import { FlatList } from "react-native-gesture-handler";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { useEffect, useState } from "react/cjs/react.development";
+import Header from "../components/Header";
 import {
   API_KEY,
   BASE_URL,
@@ -35,7 +34,7 @@ const HomeScreen = () => {
       console.error(error);
     }
   };
-
+  // @refresh reset
   useEffect(() => {
     fetchMovies();
   }, []);
@@ -49,22 +48,12 @@ const HomeScreen = () => {
       source={require("../../assets/gradient.jpg")}
       style={[styles.container, { paddingTop: top, gap: 16 }]}
     >
-      <View
-        style={{
-          flexDirection: "row",
-          justifyContent: "space-between",
-          paddingHorizontal: 16,
-        }}
-      >
-        <Text style={styles.textStyle}>Hi, Guest</Text>
-        <Text style={styles.textStyle}>♡</Text>
-      </View>
+      <Header />
 
       <FlatList
         data={movies}
         numColumns={3}
         renderItem={({ item }) => {
-          console.log(item);
           return (
             <TouchableWithoutFeedback onPress={() => goToDetailScreen(item)}>
               <ImageBackground
@@ -101,10 +90,5 @@ const styles = StyleSheet.create({
   },
   imageStyle: {
     borderRadius: 16,
-  },
-  textStyle: {
-    fontSize: 26,
-    fontWeight: "bold",
-    color: "white",
   },
 });

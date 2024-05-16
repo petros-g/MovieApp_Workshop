@@ -3,20 +3,21 @@ import { LinearGradient } from "expo-linear-gradient";
 import React from "react";
 import {
   ActivityIndicator,
-  Dimensions,
   ImageBackground,
   StyleSheet,
   Text,
   TouchableOpacity,
   View,
 } from "react-native";
+import Animated, { FadeInDown } from "react-native-reanimated";
 import { GENRES, IMAGE_BACKDROP_URL } from "../constants/constants";
-import Animated, { FadeInDown, FadeInUp } from "react-native-reanimated";
 
 const DetailScreen = () => {
   const navigation = useNavigation();
-  const [imageLoaded, setImageLoaded] = React.useState(false);
   const route = useRoute();
+
+  const [imageLoaded, setImageLoaded] = React.useState(false);
+
   const movie = route?.params?.movie;
 
   const goBack = () => {
@@ -33,7 +34,7 @@ const DetailScreen = () => {
       <ImageBackground
         onLoad={() => setImageLoaded(true)}
         resizeMode="cover"
-        style={{ width: Dimensions.get("window").width, height: 400 }}
+        style={{ width: "100%", height: 400 }}
         source={{ uri: IMAGE_BACKDROP_URL + movie?.backdrop_path }}
       >
         {imageLoaded && (
@@ -66,55 +67,18 @@ const DetailScreen = () => {
 
           <Text style={styles.title}>{movie?.original_title}</Text>
 
-          <View
-            style={{
-              flexDirection: "row",
-              flexWrap: "wrap",
-              justifyContent: "center",
-              gap: 16,
-            }}
-          >
+          <View style={styles.genresContainer}>
             {genres?.map((genre) => (
-              <View
-                key={genre}
-                style={{
-                  backgroundColor: "white",
-                  borderRadius: 16,
-                  padding: 8,
-                  shadowColor: "#000",
-                  shadowOffset: {
-                    width: 0,
-                    height: 3,
-                  },
-                  shadowOpacity: 0.15,
-                  shadowRadius: 4.65,
-                  elevation: 8,
-                }}
-              >
+              <View key={genre} style={styles.genreItem}>
                 <Text key={genre}>{genre}</Text>
               </View>
             ))}
           </View>
 
           <Text style={styles.description}>{movie?.overview}</Text>
-          <View
-            style={{
-              flex: 1,
-              justifyContent: "flex-end",
-              gap: 16,
-              paddingBottom: 12,
-            }}
-          >
-            <TouchableOpacity
-              onPress={goBack}
-              style={{
-                alignSelf: "center",
-                paddingVertical: 10,
-                paddingHorizontal: 14,
-                borderRadius: 48,
-                backgroundColor: "#787878",
-              }}
-            >
+
+          <View style={styles.backButtonContainer}>
+            <TouchableOpacity onPress={goBack} style={styles.backButton}>
               <Text style={{ color: "white", fontSize: 32 }}>←</Text>
             </TouchableOpacity>
           </View>
@@ -169,5 +133,37 @@ const styles = StyleSheet.create({
     right: 0,
     bottom: 0,
     height: 100,
+  },
+  genresContainer: {
+    flexDirection: "row",
+    flexWrap: "wrap",
+    justifyContent: "center",
+    gap: 16,
+  },
+  genreItem: {
+    backgroundColor: "white",
+    borderRadius: 16,
+    padding: 10,
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 3,
+    },
+    shadowOpacity: 0.15,
+    shadowRadius: 4.65,
+    elevation: 8,
+  },
+  backButton: {
+    alignSelf: "center",
+    paddingVertical: 10,
+    paddingHorizontal: 14,
+    borderRadius: 48,
+    backgroundColor: "#787878",
+  },
+  backButtonContainer: {
+    flex: 1,
+    justifyContent: "flex-end",
+    gap: 16,
+    paddingBottom: 12,
   },
 });

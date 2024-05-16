@@ -1,9 +1,8 @@
-import React from "react";
-import { StyleSheet } from "react-native";
 import { createStackNavigator } from "@react-navigation/stack";
+import React from "react";
+import { ROUTES } from "../constants/constants";
 import DetailScreen from "../screens/DetailScreen";
 import HomeScreen from "../screens/HomeScreen";
-import { ROUTES } from "../constants/constants";
 
 const Stack = createStackNavigator();
 
