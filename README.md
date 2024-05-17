@@ -24,7 +24,7 @@ This is a simple movie app developed for a company workshop. The app allows user
 1. Clone the repository:
 
    ```
-   git clone https://github.com/petros-g/MovieApp.git
+   git clone https://github.com/petros-g/MovieApp_Workshop.git
    ```
 
 2. Install dependencies:
